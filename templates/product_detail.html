@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-5">
+    {% if product.image_url %}
+      <img src="{{ product.image_url }}" class="img-fluid rounded mb-3 border" alt="{{ product.name }}">
+    {% endif %}
+  </div>
+
+  <div class="col-md-7">
+    <h2>{{ product.name }}</h2>
+
+    {% if product.fragrance %}
+      <p><strong>Aromă:</strong> {{ product.fragrance }}</p>
+    {% endif %}
+
+    {% if product.burn_time %}
+      <p><strong>Timp de ardere:</strong> {{ product.burn_time }}</p>
+    {% endif %}
+
+    {% if product.weight %}
+      <p><strong>Greutate:</strong> {{ product.weight }}</p>
+    {% endif %}
+
+    <p>{{ product.description }}</p>
+
+    <div class="mb-2">
+      {% if product.old_price %}
+        <span class="text-muted text-decoration-line-through me-2">
+          {{ "%.2f"|format(product.old_price) }} EUR
+        </span>
+      {% endif %}
+      <span class="fs-4 fw-bold text-success">
+        {{ "%.2f"|format(product.price) }} EUR
+      </span>
+    </div>
+
+    <form method="post" action="{{ url_for('add_to_cart', product_id=product.id) }}" class="row g-2 mb-3">
+      <div class="col-auto">
+        <input type="number" name="quantity" class="form-control" value="1" min="1">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-success">Adaugă în coș</button>
+      </div>
+    </form>
+
+    {% if avg_rating %}
+      <p>Rating mediu: {{ "%.1f"|format(avg_rating) }} / 5 ({{ reviews|length }} recenzii)</p>
+    {% endif %}
+  </div>
+</div>
+
+<hr>
+
+<h4>Recenzii</h4>
+
+{% if current_user.is_authenticated %}
+<form method="post" class="mb-3">
+  <div class="mb-2">
+    <label class="form-label">Rating (1-5)</label>
+    <select class="form-select" name="rating">
+      {% for i in range(1,6) %}
+      <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-2">
+    <label class="form-label">Comentariu</label>
+    <textarea class="form-control" name="comment" required></textarea>
+  </div>
+  <button class="btn btn-primary btn-sm">Trimite recenzie</button>
+</form>
+{% else %}
+<p><a href="{{ url_for('login') }}">Loghează-te</a> pentru a lăsa o recenzie.</p>
+{% endif %}
+
+<ul class="list-group mb-4">
+  {% for r in reviews %}
+  <li class="list-group-item">
+    <strong>{{ r.rating }}/5</strong> - {{ r.comment }}<br>
+    <small>{{ r.created_at.strftime("%d.%m.%Y %H:%M") }}</small>
+  </li>
+  {% endfor %}
+</ul>
+
+{% if similar_products %}
+<h4>Produse similare</h4>
+<div class="row">
+  {% for sp in similar_products %}
+  <div class="col-md-3 mb-3">
+    <div class="card h-100">
+      {% if sp.image_url %}
+      <img src="{{ sp.image_url }}" class="card-img-top" alt="{{ sp.name }}">
+      {% endif %}
+      <div class="card-body">
+        <h6 class="card-title">{{ sp.name }}</h6>
+        <p class="text-success fw-bold">{{ "%.2f"|format(sp.price) }} EUR</p>
+        <a href="{{ url_for('product_detail', product_id=sp.id) }}" class="btn btn-outline-success btn-sm w-100">
+          Detalii
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

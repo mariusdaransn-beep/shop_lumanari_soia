@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Admin - Produse{% endblock %}
+
+{% block content %}
+<h2>Admin - Produse</h2>
+
+<a href="{{ url_for('admin_add_product') }}" class="btn btn-success mb-3">Adaugă produs</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nume</th>
+      <th>Categorie</th>
+      <th>Preț</th>
+      <th>Stoc</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in products %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.category.name if p.category else "-" }}</td>
+      <td>{{ "%.2f"|format(p.price) }} EUR</td>
+      <td>{{ p.stock }}</td>
+      <td>
+        <a class="btn btn-sm btn-primary" href="{{ url_for('admin_edit_product', product_id=p.id) }}">Editează</a>
+        <a class="btn btn-sm btn-danger" href="{{ url_for('admin_delete_product', product_id=p.id) }}"
+           onclick="return confirm('Sigur ștergi acest produs?');">Șterge</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

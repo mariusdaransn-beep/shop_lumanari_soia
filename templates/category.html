@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">{{ category.name }}</h2>
+
+<div class="row">
+  {% for p in products %}
+  <div class="col-md-3 mb-3">
+    <div class="card h-100">
+      {% if p.image_url %}
+      <img src="{{ p.image_url }}" class="card-img-top" alt="{{ p.name }}">
+      {% endif %}
+      <div class="card-body">
+        <h6 class="card-title">{{ p.name }}</h6>
+        <p class="text-success fw-bold">{{ "%.2f"|format(p.price) }} EUR</p>
+        <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn-outline-success btn-sm w-100">
+          Detalii
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

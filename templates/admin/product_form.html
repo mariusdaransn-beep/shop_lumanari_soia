@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}{{ product and "Editează produs" or "Adaugă produs" }}{% endblock %}
+
+{% block content %}
+<h2>{{ product and "Editează produs" or "Adaugă produs" }}</h2>
+
+<form method="post" enctype="multipart/form-data" class="row g-3">
+
+  <div class="col-md-6">
+    <label class="form-label">Nume</label>
+    <input class="form-control" name="name" value="{{ product.name if product else '' }}" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Categorie</label>
+    <select class="form-select" name="category_id">
+      <option value="">(fără categorie)</option>
+      {% for c in categories %}
+      <option value="{{ c.id }}" {% if product and product.category_id == c.id %}selected{% endif %}>
+        {{ c.name }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Preț</label>
+    <input class="form-control" name="price" type="number" step="0.01"
+           value="{{ product.price if product else '' }}" required>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Preț vechi</label>
+    <input class="form-control" name="old_price" type="number" step="0.01"
+           value="{{ product.old_price if product else '' }}">
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Stoc</label>
+    <input class="form-control" name="stock" type="number"
+           value="{{ product.stock if product else '' }}" required>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Descriere</label>
+    <textarea class="form-control" name="description" rows="3" required>{{ product.description if product else '' }}</textarea>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Aromă</label>
+    <input class="form-control" name="fragrance" value="{{ product.fragrance if product else '' }}">
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Timp de ardere</label>
+    <input class="form-control" name="burn_time" value="{{ product.burn_time if product else '' }}">
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Greutate</label>
+    <input class="form-control" name="weight" value="{{ product.weight if product else '' }}">
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Imagine produs</label>
+    <input class="form-control" type="file" name="image" accept="image/*">
+    {% if product and product.image_url %}
+    <p class="mt-2">Imagine curentă:</p>
+    <img src="{{ product.image_url }}" alt="" style="max-width:150px;">
+    {% endif %}
+  </div>
+
+  <div class="col-12">
+    <button class="btn btn-success">Salvează</button>
+    <a href="{{ url_for('admin_products') }}" class="btn btn-secondary">Renunță</a>
+  </div>
+
+</form>
+{% endblock %}

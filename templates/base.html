@@ -1,0 +1,484 @@
+
+<!doctype html>
+<html lang="ro">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}SoiaCraft Candles{% endblock %}</title>
+
+    <!-- Google Fonts: Luxury vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Stiluri personalizate -->
+    <style>
+        :root {
+            --lux-gold: #e6c87c;
+            --lux-gold-dark: #b4923e;
+            --lux-bg: #0e0e10;
+            --lux-card: #18181c;
+            --lux-border: #2a2a30;
+            --lux-text: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #262531 0, #0b0b0d 45%, #050506 100%);
+            color: var(--lux-text);
+        }
+
+        h1, h2, h3, .navbar-brand, footer h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* CONTAINER CENTRAL LUXURY */
+        main.container {
+            max-width: 1100px;
+        }
+
+        /* NAVBAR LUXURY */
+        .navbar {
+            background: rgba(5, 5, 8, 0.97) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(230, 200, 124, 0.35);
+        }
+
+        .navbar-brand {
+            letter-spacing: 1px;
+            color: var(--lux-gold) !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            position: relative;
+            color: #ddd !important;
+            margin-left: 0.25rem;
+            margin-right: 0.25rem;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--lux-gold), #ffffff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* CARDURI GENERAL */
+        .card {
+            background: var(--lux-card);
+            border: 1px solid var(--lux-border);
+            color: var(--lux-text);
+        }
+
+        .card img {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        /* BUTOANE LUXURY */
+        .btn-lux {
+            background: linear-gradient(135deg, var(--lux-gold), #fff4d0);
+            border: 1px solid var(--lux-gold-dark);
+            color: #3a2a0a;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .btn-lux:hover {
+            filter: brightness(0.95);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+            color: #251a06;
+        }
+
+        /* FLASH MESSAGES */
+        .flash-container {
+            position: relative;
+            z-index: 5;
+        }
+
+        .alert-lux {
+            border-radius: 999px;
+            border: 1px solid var(--lux-gold);
+            background: rgba(18, 18, 22, 0.95);
+            color: var(--lux-text);
+        }
+
+        /* FOOTER LUXURY */
+        footer {
+            background: #050507;
+            color: #eee;
+            border-top: 1px solid rgba(230, 200, 124, 0.35);
+        }
+
+        footer h4, footer h6 {
+            color: var(--lux-gold);
+        }
+
+        footer a {
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--lux-gold);
+        }
+
+        .footer-divider {
+            border-color: #2b2b31;
+        }
+
+        /* ICONIȚE ROTUNDE PREMIUM */
+        .social-icon-wrapper {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .social-icon-wrapper i {
+            font-size: 1.4rem;
+            transition: all 0.4s ease;
+        }
+
+        /* ANIMAȚIE PULSE */
+        .pulse:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.28);
+        }
+
+        /* INSTAGRAM GRADIENT REAL */
+        .instagram {
+            background: radial-gradient(circle at 30% 107%,
+                #fdf497 0%, #fdf497 5%,
+                #fd5949 45%,
+                #d6249f 60%,
+                #285AEB 90%);
+        }
+
+        .instagram i {
+            color: #fff;
+        }
+
+        /* FACEBOOK ALBASTRU */
+        .facebook {
+            background: #1877f2;
+        }
+
+        .facebook i {
+            color: #fff;
+        }
+
+        /* TIKTOK DUBLĂ CULOARE */
+        .tiktok {
+            background: linear-gradient(135deg, #25f4ee 0%, #fe2c55 100%);
+
+        }
+
+        .tiktok i {
+            color: #000;
+            text-shadow: 0 0 6px #ffffff;
+        }
+
+        /* LUXURY WHITE-GOLD */
+        .luxury {
+            background: linear-gradient(135deg, #ffffff, #e6c87c);
+            border: 1px solid #d4b56a;
+        }
+
+        .luxury i {
+            color: #8a6d1d;
+        }
+
+        /* NEWSLETTER BAR */
+        .newsletter-bar {
+            border-radius: 999px;
+            border: 1px solid var(--lux-border);
+            background: #111119;
+        }
+
+        .newsletter-bar input {
+            background: transparent;
+            border: none;
+            color: #eee;
+        }
+
+        .newsletter-bar input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        /* BUTON BACK TO TOP */
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--lux-gold);
+            border: 1px solid var(--lux-gold-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* BUTON WHATSAPP PLUTITOR */
+        #whatsappBtn {
+            position: fixed;
+            bottom: 76px;
+            right: 16px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #25d366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+            z-index: 100;
+        }
+
+        #whatsappBtn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 22px rgba(0, 0, 0, 0.9);
+        }
+
+
+
+        #whatsappBtn a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Pentru ecrane mici */
+        @media (max-width: 576px) {
+            #whatsappBtn {
+                bottom: 20px;
+                right: 14px;
+            }
+            #backToTop {
+                bottom: 76px;
+                right: 14px;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+                SoiaCraft Candles
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Acasă</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a>
+                    </li>
+
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'cart' %}active{% endif %}" href="{{ url_for('cart') }}">Coș</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}">Login</a>
+                        </li>
+                    {% endif %}
+
+                    {% if current_user.is_authenticated and current_user.is_admin %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint and request.endpoint.startswith('admin_') %}active{% endif %}" href="{{ url_for('admin_dashboard') }}">Admin</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FLASH MESSAGES -->
+    <div class="container mt-3 flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-lux alert-dismissible fade show small" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- CONTENT -->
+    <main class="container my-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER PREMIUM -->
+    <footer class="py-4 mt-auto">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Brand & Social -->
+                <div class="col-md-4 mb-3">
+                    <h4 class="fw-bold">SoiaCraft Candles</h4>
+                    <p class="small">
+                        Lumânări artizanale turnate manual, din ceară de soia 100% naturală.
+                        Arome fine, design minimalist, calitate premium.
+                    </p>
+
+                    <div class="d-flex gap-3 mt-3">
+
+                        <a href="https://instagram.com" target="_blank" class="text-decoration-none">
+                            <div class="social-icon-wrapper instagram pulse">
+                                <i class="bi bi-instagram"></i>
+                            </div>
+                        </a>
+
+                        <a href="https://facebook.com" target="_blank" class="text-decoration-none">
+                            <div class="social-icon-wrapper facebook pulse">
+                                <i class="bi bi-facebook"></i>
+                            </div>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@omihaela1977" target="_blank" class="text-decoration-none">
+    <div class="social-icon-wrapper tiktok pulse">
+        <i class="bi bi-tiktok"></i>
+    </div>
+</a>
+
+                        <div class="social-icon-wrapper luxury pulse">
+                            <i class="bi bi-star"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Navigare -->
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold">Navigare</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="{{ url_for('home') }}" class="text-light text-decoration-none">Acasă</a></li>
+                        <li><a href="{{ url_for('contact') }}" class="text-light text-decoration-none">Contact</a></li>
+                        {% if current_user.is_authenticated and current_user.is_admin %}
+                        <li><a href="{{ url_for('admin_dashboard') }}" class="text-light text-decoration-none">Admin</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <!-- Newsletter & Contact -->
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold">Rămâi aproape</h6>
+
+                    <form class="newsletter-bar d-flex align-items-center px-3 py-1 mb-2">
+                        <i class="bi bi-envelope-open me-2 text-secondary"></i>
+                        <input type="email" class="form-control form-control-sm" placeholder="Email pentru noutăți...">
+                        <button type="button" class="btn btn-sm btn-lux ms-2">Trimite</button>
+                    </form>
+
+                    <p class="small mb-1">Email: contactbozoanamihaela@yahoo.com</p>
+                    <p class="small mb-1">Telefon: +43 67763436554</p>
+                    <p class="small">Handmade în România, cu grijă pentru detalii.</p>
+                </div>
+
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="text-center small">
+                &copy; {{ current_year }} SoiaCraft Candles — Toate drepturile rezervate.
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- BUTON WHATSAPP -->
+    <div id="whatsappBtn">
+        <a href="https://wa.me/"067763436554 target="_blank">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- BUTON BACK TO TOP -->
+    <div id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <!-- Bootstrap JS + scripturi custom -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Buton back to top
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+{% block title %}Admin - Dashboard{% endblock %}
+
+{% block content %}
+<h2>Admin - Dashboard</h2>
+
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card text-bg-success mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Produse</h5>
+        <p class="card-text display-6">{{ total_products }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-bg-primary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Comenzi</h5>
+        <p class="card-text display-6">{{ total_orders }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-bg-secondary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Utilizatori</h5>
+        <p class="card-text display-6">{{ total_users }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="{{ url_for('admin_products') }}" class="btn btn-outline-success">Gestionare produse</a>
+{% endblock %}

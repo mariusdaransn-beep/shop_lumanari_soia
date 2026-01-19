@@ -1,0 +1,410 @@
+{% extends "base.html" %}
+{% block title %}SoiaCraft Candles — Handmade Luxury{% endblock %}
+
+{% block content %}
+
+<!-- HERO VIDEO CINEMATIC COMPLET -->
+<section id="heroParallax" class="position-relative overflow-hidden" style="height: 85vh;">
+
+    <!-- VIDEO BACKGROUND CU PARALLAX -->
+    <video id="heroVideo" autoplay muted loop playsinline
+           style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 120%;
+                object-fit: cover;
+                z-index: 1;
+                transform: translateY(0);
+                filter: contrast(1.05) saturate(1.1);
+           ">
+        <source src="https://media.istockphoto.com/id/2177813245/video/raw-fresh-coffee-beans-in-smoke.mp4?s=mp4-640x640-is&k=20&c=KXo4CH71ZavNS7uNrQtOrk0HqdD4Y-DnaHd4_TS1k3o=" type="video/mp4">
+    </video>
+
+    <!-- HEAT DISTORTION SUBTIL -->
+    <div id="heatLayer"
+         style="
+            position:absolute;
+            top:-10%;
+            left:0;
+            width:100%;
+            height:130%;
+            background: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.12), transparent 55%);
+            mix-blend-mode: soft-light;
+            opacity:0.35;
+            filter: blur(6px);
+            animation: heatWave 10s infinite ease-in-out;
+            z-index: 2;
+         ">
+    </div>
+
+    <!-- AURORA GLOW / GRADIENT DINAMIC -->
+    <div id="auroraLayer"
+         style="
+            position:absolute;
+            top:0;
+            left:0;
+            width:110%;
+            height:110%;
+            background: radial-gradient(circle at 10% 0%, rgba(230,200,124,0.3), transparent 55%),
+                        radial-gradient(circle at 90% 80%, rgba(120,180,255,0.18), transparent 60%);
+            opacity:0.6;
+            mix-blend-mode: screen;
+            animation: auroraMove 18s infinite alternate ease-in-out;
+            z-index: 2;
+         ">
+    </div>
+
+    <!-- OVERLAY LUXURY + VIGNETTE -->
+    <div class="position-absolute top-0 start-0 w-100 h-100"
+         style="
+            background: radial-gradient(circle at center, rgba(0,0,0,0.25), rgba(0,0,0,0.9));
+            z-index: 3;
+         ">
+    </div>
+
+    <!-- LENS FLARE CINEMATIC -->
+    <div id="lensFlare"
+         style="
+            position:absolute;
+            top:-10%;
+            left:-40%;
+            width:70%;
+            height:200%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.12), rgba(230,200,124,0.35), rgba(255,255,255,0.0));
+            opacity:0;
+            mix-blend-mode: screen;
+            z-index:4;
+            pointer-events:none;
+         ">
+    </div>
+
+    <!-- PARTICULE BOEKH & DUST -->
+    <div id="bokehContainer"
+         style="
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            z-index:5;
+            pointer-events:none;
+         ">
+    </div>
+
+    <!-- FUM SUBTIL -->
+    <div id="smokeLayer"
+         style="
+            position:absolute;
+            bottom:-20%;
+            left:0;
+            width:100%;
+            height:140%;
+            background: url('https://i.imgur.com/8fK4h7F.png') center/cover no-repeat;
+            opacity:0.26;
+            animation: smokeRise 22s infinite linear;
+            z-index:6;
+         ">
+    </div>
+
+    <!-- CONȚINUT HERO -->
+    <div class="position-relative d-flex flex-column justify-content-center align-items-center h-100 text-center text-light px-3"
+         style="z-index: 7;">
+
+        <!-- TITLU CU REFLEXII AURII -->
+        <h1 class="display-4 fw-bold mb-3 gold-reflect"
+            style="font-family: 'Playfair Display', serif;">
+            Lumânări Artizanale din Ceară de Soia
+        </h1>
+
+        <p class="lead mb-4" style="max-width: 650px; animation: fadeInUp 1.6s ease;">
+            Arome premium, design minimalist și o experiență olfactivă de lux pentru casa ta.
+        </p>
+
+        <!-- BUTON CU GLOW SOFT -->
+        <a href="{{ url_for('category_page', slug='lumanari-parfumate') }}"
+           class="btn btn-lux px-4 py-2 hero-glow"
+           style="animation: fadeInUp 2s ease;">
+            Descoperă colecția
+        </a>
+
+    </div>
+</section>
+
+<!-- ANIMAȚII CSS PENTRU HERO -->
+<style>
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes smokeRise {
+    from { transform: translateY(20px); }
+    to { transform: translateY(-120px); }
+}
+
+/* HEAT DISTORTION SUBTIL */
+@keyframes heatWave {
+    0% { transform: translateY(0) scale(1); opacity:0.25; }
+    50% { transform: translateY(8px) scale(1.02); opacity:0.4; }
+    100% { transform: translateY(-6px) scale(1.01); opacity:0.28; }
+}
+
+/* AURORA GLOW */
+@keyframes auroraMove {
+    0% { transform: translate(-4%, -4%) rotate(0deg); }
+    50% { transform: translate(3%, 2%) rotate(3deg); }
+    100% { transform: translate(-2%, 4%) rotate(-2deg); }
+}
+
+/* REFLEXII AURII PE TITLU */
+.gold-reflect {
+    background: linear-gradient(90deg, #ffffff, #e6c87c, #ffffff);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: goldShine 4s infinite linear;
+    background-size: 200% 100%;
+}
+
+@keyframes goldShine {
+    0% { background-position: -100% 0; }
+    100% { background-position: 100% 0; }
+}
+
+/* GLOW SOFT PE BUTON */
+.hero-glow {
+    box-shadow: 0 0 18px rgba(230, 200, 124, 0.6);
+    transition: 0.3s ease;
+}
+.hero-glow:hover {
+    box-shadow: 0 0 30px rgba(230, 200, 124, 0.95);
+    transform: scale(1.05);
+}
+
+/* PARTICULE BOKEH / DUST / SPARKLES */
+.bokeh {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Lens flare anim pe hover/scroll poate fi extins dacă vrei
+   deocamdată îl controlăm din JS la load. */
+</style>
+
+<!-- SCRIPT PARALLAX + PARTICULE + LENS FLARE -->
+<script>
+// Parallax pe video
+document.addEventListener("scroll", function() {
+    const scrolled = window.scrollY;
+    const video = document.getElementById("heroVideo");
+
+    if (video) {
+        video.style.transform = "translateY(" + (scrolled * 0.35) + "px)";
+    }
+});
+
+// BOKEH / DUST / SPARKLES
+const bokehContainer = document.getElementById("bokehContainer");
+
+function createBokeh() {
+    if (!bokehContainer) return;
+    const b = document.createElement("div");
+    const size = Math.random() * 18 + 10;
+
+    b.classList.add("bokeh");
+
+    const isSparkle = Math.random() < 0.2;
+    const isDust = !isSparkle && Math.random() < 0.5;
+
+    if (isSparkle) {
+        b.style.background = "rgba(230, 200, 124, 0.9)";
+        b.style.boxShadow = "0 0 12px rgba(230, 200, 124, 0.9)";
+    } else if (isDust) {
+        b.style.background = "rgba(255, 255, 255, 0.18)";
+        b.style.filter = "blur(2px)";
+    } else {
+        b.style.background = "rgba(255, 255, 255, 0.26)";
+        b.style.filter = "blur(4px)";
+    }
+
+    b.style.width = size + "px";
+    b.style.height = size + "px";
+    b.style.left = Math.random() * 100 + "%";
+    b.style.top = "110%";
+
+    const duration = Math.random() * 6 + 8;
+    const delay = Math.random() * 2;
+
+    b.style.animation = `bokehFloat ${duration}s linear ${delay}s forwards`;
+
+    bokehContainer.appendChild(b);
+
+    setTimeout(() => b.remove(), (duration + delay) * 1000);
+}
+
+setInterval(createBokeh, 500);
+
+</script>
+
+<style>
+@keyframes bokehFloat {
+    from { transform: translateY(0); opacity: 0.5; }
+    to { transform: translateY(-150vh); opacity: 0; }
+}
+</style>
+
+<!-- După HERO, continui restul paginii: colecții, avantaje etc. -->
+
+<!-- COLECȚII (exemplu simplu, le poți păstra pe ale tale sau pe acestea) -->
+<section class="mb-5 mt-5">
+    <h2 class="text-center mb-4" style="font-family: 'Playfair Display', serif;">Colecțiile Noastre</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76d1?auto=format&fit=crop&w=800&q=80" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Lumânări Parfumate</h5>
+                    <p class="card-text small">Arome naturale, note fine, atmosferă relaxantă.</p>
+                    <a href="{{ url_for('category_page', slug='lumanari-parfumate') }}" class="btn btn-lux btn-sm">Vezi colecția</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342df4e9b?auto=format&fit=crop&w=800&q=80" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Seturi Cadou</h5>
+                    <p class="card-text small">Cadouri elegante pentru cei dragi.</p>
+                    <a href="#" class="btn btn-lux btn-sm">Vezi colecția</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342df4e9b?auto=format&fit=crop&w=800&q=80" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Colecția Signature</h5>
+                    <p class="card-text small">Arome rare, design exclusivist.</p>
+                    <a href="#" class="btn btn-lux btn-sm">Vezi colecția</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<style>
+@keyframes bokehFloat {
+    from { transform: translateY(0); opacity: 0.4; }
+    to { transform: translateY(-140vh); opacity: 0; }
+}
+</style>
+
+
+
+
+<!-- COLECȚII -->
+<section class="mb-5">
+    <h2 class="text-center mb-4" style="font-family: 'Playfair Display', serif;">Colecțiile Noastre</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76d1?auto=format&fit=crop&w=800&q=80" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Lumânări Parfumate</h5>
+                    <p class="card-text small">Arome naturale, note fine, atmosferă relaxantă.</p>
+                    <a href="{{ url_for('category_page', slug='lumanari-parfumate') }}" class="btn btn-lux btn-sm">Vezi colecția</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342df4e9b?auto=format&fit=crop&w=800&q=80" class="card-img-top">
+                <div class="card-title">
+                    <h5 class="card-title">Seturi Cadou</h5>
+                    <p class="card-text small">Cadouri elegante pentru cei dragi.</p>
+                    <a href="{{ url_for('category_page', slug='seturi-cadou')}}" class = "btn btn lux btn -sm">Vezi colectia</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342df4e9b?auto=format&fit=crop&w=800&q=80" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Colecția Signature</h5>
+                    <p class="card-text small">Arome rare, design exclusivist.</p>
+                    <a href="#" class="btn btn-lux btn-sm">Vezi colecția</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- AVANTAJE -->
+<section class="text-center my-5">
+    <h2 class="mb-4" style="font-family: 'Playfair Display', serif;">De ce SoiaCraft?</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <i class="bi bi-leaf fs-1 text-success"></i>
+            <h5 class="mt-2">100% Natural</h5>
+            <p class="small">Ceară de soia pură, ecologică și non-toxică.</p>
+        </div>
+
+        <div class="col-md-4">
+            <i class="bi bi-hand-index-thumb fs-1 text-warning"></i>
+            <h5 class="mt-2">Handmade în România</h5>
+            <p class="small">Fiecare lumânare este turnată manual cu grijă.</p>
+        </div>
+
+        <div class="col-md-4">
+            <i class="bi bi-stars fs-1 text-info"></i>
+            <h5 class="mt-2">Arome Premium</h5>
+            <p class="small">Note parfumate fine, inspirate din natură.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- TESTIMONIALE -->
+<section class="my-5">
+    <h2 class="text-center mb-4" style="font-family: 'Playfair Display', serif;">Ce spun clienții</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card p-4 shadow-sm mb-3">
+                <p class="mb-1">„Cele mai bune lumânări pe care le-am avut vreodată!”</p>
+                <small>— Andreea M.</small>
+            </div>
+
+            <div class="card p-4 shadow-sm mb-3">
+                <p class="mb-1">„Mirosul persistă ore întregi. Recomand 100%.”</p>
+                <small>— Ioana P.</small>
+            </div>
+
+            <div class="card p-4 shadow-sm">
+                <p class="mb-1">„Ambalaj premium, perfecte pentru cadouri.”</p>
+                <small>— Radu C.</small>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
